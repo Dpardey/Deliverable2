@@ -52,6 +52,8 @@ def load_data(database_filepath):
     df = pd.read_sql_table('DisasterResponse',engine)
     X = df.message.values
     Y = df.loc[:,~df.columns.isin(['id','message','original','genre'])]
+    Y.loc[Y.related > 1, 'related'] = 1
+    Y = Y.drop(columns = 'child_alone')
     category_names = [i for i in df.columns if i not in (['id','message','original','genre'])]
     
     return X, Y, category_names
