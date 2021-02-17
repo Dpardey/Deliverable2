@@ -1,3 +1,4 @@
+# Libraries needed for reading and manipulating the data
 import sys
 import pandas as pd
 from sqlalchemy import create_engine
@@ -6,7 +7,17 @@ engine = create_engine('sqlite://', echo=False)
 
 
 def load_data(messages_filepath, categories_filepath):
+    '''
+    Function that load the data needed
     
+    Parameters:
+    messages_filepath (str) : String containing the messages filepath database
+    categories_filepath (str) : String cointainng the categories filepath database
+    
+    Returns:
+    df (DataFrame) : Dataframe resulting dataframe after merging the messages and categories database
+    
+    '''
     global df_categories
     global df_messages    
     global df
@@ -22,6 +33,16 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    '''
+    Function that cleans the data
+    
+    Parameters:
+    df (DataFrame) : Dataframe after merging the data
+    
+    Returns:
+    df (DataFrame) : A clean DataFrame
+    
+    '''
     
     global index
     global category_colnames
@@ -53,11 +74,18 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
+    '''
+    Funtion that save the dataframe into a sqlite database
+    
+    Parameters:
+    df (DataFrame) : Dataframe after merging the data
+    database_filename (str) : A string containing the destination of the database    
+    
+    '''
     
     engine = create_engine('sqlite:///DisasterResponse.db')
     df.to_sql('DisasterResponse', engine, index=False) 
-    
-    pass  
+     
 
 
 def main():
