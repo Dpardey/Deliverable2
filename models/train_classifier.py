@@ -1,4 +1,4 @@
-# import libraries
+# Libraries needed for reading and manipulating the data
 import sys
 import pandas as pd 
 import numpy as np
@@ -25,27 +25,52 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import GridSearchCV
 from sklearn.svm import LinearSVC
 
-## Pickle
+# This package enables to print statments in the middle of the screen
+import shutil
+columns = shutil.get_terminal_size().columns
+
+# Saving the model
 import pickle
 
 
 def load_data(database_filepath):
+    '''
+    Function that import the data and store it in a sqlite database
+    
+    Parameters: 
+    database_filepath (str) : Location of the sqlite database
+    
+    Returns:
+    X (array) : Object with the messages within the database
+    Y (DataFrame) : Object with the categories of the message
+    category_names (list) : List with the category names 
+    
+    '''
     
     global df
     engine = create_engine('sqlite:///DisasterResponse.db')
     df = pd.read_sql_table('DisasterResponse',engine)
     X = df.message.values
     Y = df.loc[:,~df.columns.isin(['id','message','original','genre'])]
+    category_names = [i for i in df.columns if i not in (['id','message','original','genre'])]
     
-    return X, Y
+    return X, Y, category_names
 
 
 def tokenize(text):
+    '''
     
-    ## Here we're imporing the stop words list, initializing the lemmatizer and creating 
-    ## an empty list to append letter the clean sentences
+    Function that clean the messages object
     
-    stop_words = stopwords.words('english')
+    Parameters:
+    text (array) : Object with the messages
+    
+    Returns:
+    clean_tokens : Object containing the "clean" messages
+    
+    '''
+    
+    
     lemmatizer = WordNetLemmatizer()
     clean_tokens = []
     
@@ -63,6 +88,17 @@ def tokenize(text):
 
 
 def build_model():
+    '''
+    Function that create and boost the model performance
+    
+    Parameters:
+    
+    Returns:
+    cv : Model
+    
+    '''
+    
+    stop_words = stopwords.words('english')
     
     pipeline = Pipeline([
         ('features', FeatureUnion([
@@ -73,28 +109,54 @@ def build_model():
             ]))
         ])),
 
-        ('clf', MultiOutputClassifier(LinearSVC()))
+        ('svc', MultiOutputClassifier(LinearSVC()))
     ])
     
     parameters = {
         'features__text_pipeline__vect__max_df': (0.5, 0.75, 1.0),
         'features__text_pipeline__vect__max_features': (None, 5000, 10000),
         'features__text_pipeline__tfidf__use_idf': (True, False),
-        'clf__estimator__n_estimators': [50, 100, 200],
-        'clf__estimator__min_samples_split': [2, 3, 4]
+        'svc__estimator__C': [0.1, 1, 10, 100]
     } 
 
     cv = GridSearchCV(pipeline, param_grid=parameters)
+    #cv.fit(X_train, Y_train)
+    
+    #print('\nOverall best parameters: ', cv.best_params_)
     
     return cv
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    categories = [i for i in df.columns if i not in (['id','message','original','genre'])]
-    print(classification_report(X_test, cv.fit(X_test, Y_test), target_names=categories))
+    '''
+    Function that prints out the metrics of categories
+    
+    Parameters:
+    model: Model
+    X_test (array) : Object containing the randomized proportion of the messages
+    Y_test (DataFrame) : Object with the categories of the messages
+    category_names: List with the category names
+    
+    Returns:
+    
+    '''
+    
+    prediction = model.predict(X_test)
+    for i, category in enumerate(category_names):
+        
+        print('... {} ...'.format(category.upper()).center(columns))
+        print(classification_report(Y_test[category], prediction[:,i]))
 
 
 def save_model(model, model_filepath):
+    '''
+    Function that save the model
+    
+    Parameters:
+    model: Model
+    model_filepath (str): The model filepath
+    
+    '''
     
     pkl_filename = "classifier.pkl"
     with open(pkl_filename, 'wb') as file:
