@@ -3,7 +3,7 @@
 ### Summary
 
 The goal of this project is to identify text messages following a natural disaster in order to identify the most important (valuable for the responde disaster professionals). 
-This project was created within a single pipeline. Starting with the back-end (loading data, cleaning, ...) passing through an ML algorithm that learn from the data and endeed in the front-end with a web app. 
+This project was created within a single pipeline. Starting with the back-end (loading data, cleaning, ...) passing through an ML algorithm that learn from the data and endeed it in a front-end with a web app. 
 
 ### Databases
 
