@@ -5,9 +5,15 @@
 The goal of this project is to identify text messages following a natural disaster in order to identify the most important (valuable for the responde disaster professionals). 
 This project was created within a single pipeline. Starting with the back-end (loading data, cleaning, ...) passing through an ML algorithm that learn from the data and endeed it in a front-end with a web app. 
 
-### Databases
+### Files in the repository
 
-1. Disaster_messages.csv: Database containing all the messages or tweets following a natural disaster.
+1. App
+
+   - template
+      |- go.
+
+
+3. Disaster_messages.csv: Database containing all the messages or tweets following a natural disaster.
 
    - **ID** type(*int*): ID of the message
    - **Message** type(*str*): The translated-to-english message
