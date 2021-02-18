@@ -8,6 +8,7 @@ from nltk.tokenize import word_tokenize
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
+from plotly.graph_objs import Histogram
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
@@ -26,11 +27,11 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///../data/YourDatabaseName.db')
-df = pd.read_sql_table('YourTableName', engine)
+engine = create_engine('sqlite:///DisasterResponse.db')
+df = pd.read_sql_table('DisasterResponse', engine)
 
 # load model
-model = joblib.load("../models/your_model_name.pkl")
+model = joblib.load("models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -39,28 +40,62 @@ model = joblib.load("../models/your_model_name.pkl")
 def index():
     
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
-    genre_counts = df.groupby('genre').count()['message']
+    
+    # First graph
+    genre_counts = round(df.groupby('genre').count()['message'] / df.shape[0] ,1) * 100
     genre_names = list(genre_counts.index)
     
+    # Second graph
+    y = df.drop(columns = ['id','message','original', 'genre','related'])
+    categories_dist = round(y.sum(axis = 0) / y.shape[0],2) * 100
+    top_10_categories = categories_dist.sort_values(ascending = False)[:-10]
+    
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
                 Bar(
                     x=genre_names,
-                    y=genre_counts
+                    y=genre_counts,
+                    width = 0.2,
+                    #orientation = 'h',
+                    opacity = 0.4
                 )
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                #'height': '1024',
+                'title': 'Distribution of the messages topics',
                 'yaxis': {
-                    'title': "Count"
+                    'title': "Percentage over all data"
                 },
                 'xaxis': {
                     'title': "Genre"
+                }
+            }
+        }
+        
+        ,
+        
+        {
+            'data': [
+                Bar(
+                    x = top_10_categories,
+                    y = top_10_categories.index,
+                    width = 1,
+                    orientation = 'h',
+                    opacity = 0.4                    
+                )
+            ],
+
+            'layout': {
+                #'height': '1024',
+                'title': 'Categories distribution',
+                'yaxis': {
+                    'title': ""
+                },
+                'xaxis': {
+                    'title': "Percentage over all the messages"
                 }
             }
         }
