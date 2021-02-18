@@ -9,10 +9,10 @@ This project was created within a single pipeline. Starting with the back-end (l
 
 1. App
 
-- template
+ - template
    - go.html # classification result page of web app
    - master.html # main page of web app
-- run.py # Flask file that runs app
+ - run.py # Flask file that runs app
 
 2. Data
 
