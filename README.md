@@ -10,32 +10,32 @@ This project was created within a single pipeline. Starting with the back-end (l
 1. App
 
  - template
-   - go.html # classification result page of web app
+   - go.html      *# classification result page of web app*
    - master.html # main page of web app
  - run.py # Flask file that runs app
 
 2. Data
 
-- Disaster_messages.csv  #Database containing all the messages or tweets following a natural disaster
+- Disaster_messages.csv   *# Database containing all the messages or tweets following a natural disaster*
    - **ID** type(*int*): ID of the message
    - **Message** type(*str*): The translated-to-english message
    - **Original** type(*str*): Message in the original language it was written
    - **Genre** type(*str*): Topic of the message
 
-- Disaster_categories.csv #Database with all the pre-labels messages.
+- Disaster_categories.csv   *#Database with all the pre-labels messages.*
 
     - **ID** type(*int*): ID ot the message
     - **Categories** type(*str*): Within this columns reside 35 categories marked one if the message are related to the category and zero otherwise 
 
-- Process_data.py  # Python script with the goal of cleaning the data
+- Process_data.py  *# Python script with the goal of cleaning the data*
 
-- InsertDatabaseName.db # database to save clean data to
+- InsertDatabaseName.db  *# Database to save clean data to*
 
 3. Models
 
-- train_classifier.py  # Python script that train and export the model
+- train_classifier.py   *# Python script that train and export the model*
 
-- classifier.pkl # exported model
+- classifier.pkl   *# Exported model*
 
 4. README.md
 
