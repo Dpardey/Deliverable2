@@ -69,6 +69,10 @@ def clean_data(df):
     
     ## Dropping any duplicate row
     df = df.drop_duplicates()
+    
+    ## Binarizing the data and eliminate a column with only one category
+    df.loc[df.related > 1, 'related'] = 1
+    df = df.drop(columns = 'child_alone')
         
     return df
 
