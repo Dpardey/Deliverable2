@@ -9,7 +9,7 @@ This project was created within a single pipeline. Starting with the back-end (l
 
 1. Disaster_messages.csv: Database containing all the messages or tweets following a natural disaster.
 
-- ID (int): ID of the message
+- *ID* (int): ID of the message
 - Message (str): The translated-to-english message
 - Original (str): Message in the original language it was written
 - Genre (str): Topic of the message
