@@ -9,17 +9,18 @@ This project was created within a single pipeline. Starting with the back-end (l
 
 1. Disaster_messages.csv: Database containing all the messages or tweets following a natural disaster.
 
-- **ID** type(*int*): ID of the message
-- **Message** type(*str*): The translated-to-english message
-- **Original** type(*str*): Message in the original language it was written
-- **Genre** type(*str*): Topic of the message
+   - **ID** type(*int*): ID of the message
+   - **Message** type(*str*): The translated-to-english message
+   - **Original** type(*str*): Message in the original language it was written
+   - **Genre** type(*str*): Topic of the message
 
-  - **Number of messages in the data**: 26.248
 
 2. Disaster_categories.csv: Database with all the pre-labels messages.
 
-- **ID** type(*int*): ID ot the message
-- **Categories** type(*str*): Within this columns reside 35 categories marked one if the message are related to the category and zero otherwise 
+    - **ID** type(*int*): ID ot the message
+    - **Categories** type(*str*): Within this columns reside 35 categories marked one if the message are related to the category and zero otherwise 
+
+- **Number of messages in the data**: 26.248
 
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
