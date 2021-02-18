@@ -14,7 +14,7 @@ This project was created within a single pipeline. Starting with the back-end (l
 - Original (str): Message in the original language it was written
 - Genre (str): Topic of the message
 
-  - Number of messages: 26.248
+  - Number of messages in the data: 26.248
 
 2. Disaster_categories.csv: Database with all the pre-labels messages.
 
