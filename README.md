@@ -2,8 +2,13 @@
 
 ### Summary
 
-The goal of this project is to identify text messages following a natural disaster in order to identify the most important (valuable for the responde disaster professionals). 
-This project was created within a single pipeline. Starting with the back-end (loading data, cleaning, ...) passing through an ML algorithm that learn from the data and endeed it in a front-end with a web app. 
+After a disaster had occurred, people started posting tweets or messages in the internet regarding the situation in a attempt to inform either friend or authorities.
+Authorities, following a disaster, receive thousand of messages from the community either seeking for information or notifing of the disaster. 
+
+¿How usefull it would be if the competent authorities have to power to extract valious information from all this data? It would result in a shorter response-time or a more integrated response across all the rescue teams. Ultimately, the goal is to prevent even more casualties that may have already occurred. 
+The goal of this analysis is essentially that, identify text messages following disaster in order to identify the most valuable ones for the response teams.
+
+This project was created within a single pipeline. Starting with the back-end (loading data, cleaning, ...) passing through an ML algorithm that learn from the data and endeed it in a front-end web app. 
 
 ### Files in the repository
 
